@@ -17,6 +17,9 @@ export default function Home() {
       <Link to="/TowerOfHanoi">
         <button>TowerOfHanoi</button>
       </Link>
+        <Link to="/Friends">
+            <button>Add Friends</button>
+        </Link>
     </div>
   );
 }

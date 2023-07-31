@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -19,11 +20,6 @@ const Navbar = () => {
     borderRadius: "4px",
     transition: "background-color 0.3s ease-in-out",
   };
-
-  const hoverStyle = {
-    backgroundcolor: "blue",
-  };
-
   return (
     <nav style={navStyle}>
       <h1 style={{ margin: 0 }}>My App</h1>
@@ -46,6 +42,11 @@ const Navbar = () => {
         <li>
           <Link to="/RockPaperScissor" style={linkStyle} >
             Rock Paper Scissors
+          </Link>
+        </li>
+        <li>
+          <Link to="/Friends" style={linkStyle} >
+            Add Friends
           </Link>
         </li>
       </ul>
