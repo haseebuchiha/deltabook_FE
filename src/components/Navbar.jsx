@@ -45,8 +45,13 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-          <Link to="/Friends" style={linkStyle} >
+          <Link to="/AddFriends" style={linkStyle} >
             Add Friends
+          </Link>
+        </li>
+        <li>
+          <Link to="/Friends" style={linkStyle} >
+            Friends List
           </Link>
         </li>
       </ul>

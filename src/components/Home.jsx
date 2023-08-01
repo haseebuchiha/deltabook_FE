@@ -17,8 +17,11 @@ export default function Home() {
       <Link to="/TowerOfHanoi">
         <button>TowerOfHanoi</button>
       </Link>
-        <Link to="/Friends">
+      <Link to="/AddFriends">
             <button>Add Friends</button>
+        </Link>
+        <Link to="/Friends">
+            <button>Friend List</button>
         </Link>
     </div>
   );
