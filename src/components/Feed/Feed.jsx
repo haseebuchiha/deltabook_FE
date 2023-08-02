@@ -25,37 +25,41 @@ const Feed = () => {
     }
 
     return (
-        <div className="container">
+        <div className="container mx-auto max-w-screen-lg">
             <h3 className="text-center">Showing Feed</h3>
-            <div className="col card text-center mt-4 rounded-lg shadow">
-                <div className="row">
+            <div className="col my-4 bg-zinc-200 rounded-lg shadow">
 
-                    <div className="col col-2 bg-dark text-white d-flex justify-content-center align-items-center">
-                        <h5 className="mb-3"><small>by</small><br />Random User</h5>
-                    </div>
-
-                    <div className="col col-10">
-                        <div className="card-body">
-                            <h5 className="card-title">{feed.title}</h5>
-                            <hr />
-                            <p className="card-text">{feed.description}</p>
-                        </div>
-                        <div className="d-flex justify-content-center">
-                            <Link to={`/feeds/${feed.id}/edit`} className="btn btn-outline-success mx-2">Edit</Link>
-                            <button onClick={handleDestroy} className="btn btn-outline-danger mx-2">Delete</button>
-                        </div>
-                        <hr />
-                        <div className="text-muted mb-3">
-                            <small> Created {feed.created_at} ago,
-                                Edited {feed.updated_at} ago</small>
-                        </div>
-                    </div>
+                <div className="col col-3 block rounded-t-lg bg-zinc-300 px-8 py-4">
+                    <h5><small>by </small>Random User</h5>
                 </div>
-            </div>
+                <hr className="bg-zinc-500 border-0 h-px" />
+
+                <div className="text-center px-8">
+                    <Link to={`/feeds/${feed.id}`} className="text-2xl hover:underline my-2 inline-block">{feed.title}</Link>
+                    <hr className="border-0 h-px bg-transparent bg-gradient-to-r from-transparent via-zinc-500 to-transparent opacity-25" />
+                    <p className="text-zinc-900 text-start my-4">{feed.description}</p>
+                </div>
+
+                <div className="col-2 flex flex-row justify-center text-center bg-light space-x-4 py-3">
+                    <Link to={`/feeds/${feed.id}/edit`} className="border-2 rounded-lg p-2 border-green-600 bg-green-600/[.20] transition duration-200 hover:bg-green-600 hover:text-white basis-20 flex-initial">Edit</Link>
+                    <button className="border-2 rounded-lg p-2 px-4 border-red-600 bg-red-600/[.20] transition duration-200 hover:bg-red-600 hover:text-white basis-20 flex-initial" onClick={handleDestroy}>Delete</button>
+                </div>
+            </div >
             <div className="text-center">
-                <Link to={`/feeds`} className="btn btn-outline-dark btn-lg mt-5">Back to Feeds</Link>
+                <Link to={`/feeds`} className="border-2 rounded-lg h-12 px-4 py-2 border-neutral-600 bg-neural-600/[.20] transition duration-200 hover:bg-neutral-600/75 text-zinc-400 hover:text-white inline-block">Back to Feeds</Link>
             </div>
         </div>
+
+
+
+
+
+
+
+
+
+
+
     )
 }
 
