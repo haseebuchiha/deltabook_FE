@@ -45,7 +45,7 @@ const Feeds = () => {
                     <h3 className="text-center">Showing All Feeds</h3>
                     {grid}
                     <div className="text-center my-4">
-                        <Link to="/feeds/new" className="border-2 rounded-lg p-2 border-neutral-600 bg-neural-600/[.20] transition duration-200 hover:bg-neutral-600/75 hover:text-white basis-20 flex-initial">New Feed</Link>
+                        <Link to="/feeds/new" className="border-2 rounded-lg py h-12 w-24 py-2 border-neutral-600 bg-neural-600/[.20] transition duration-200 hover:bg-neutral-600/75 text-zinc-400 hover:text-white inline-block">New Feed</Link>
                     </div>
                 </div>
 

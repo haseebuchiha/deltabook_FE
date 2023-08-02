@@ -23,8 +23,8 @@ function App() {
         <Route path="/TowerOfHanoi" element={<TowerOfHanoi />} />
         <Route path='/feeds' element={<Feeds />} />
         <Route path='/feeds/new' element={<NewFeed />} />
-        <Route path='/feed/:id' element={<Feed />} />
-        <Route path='/feed/:id/edit' element={<EditFeed />} />
+        <Route path='/feeds/:id' element={<Feed />} />
+        <Route path='/feeds/:id/edit' element={<EditFeed />} />
       </Routes>
     </>
   )

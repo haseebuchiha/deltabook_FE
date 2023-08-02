@@ -6,3 +6,9 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   background-color: rgb(236, 236, 236);
 }
+
+@layer base {
+  body {
+    @apply bg-gradient-to-tr from-zinc-700 via-zinc-900 to-black min-h-screen h-full
+  }
+}

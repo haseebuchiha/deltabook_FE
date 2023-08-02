@@ -41,7 +41,7 @@ const Feed = () => {
                             <p className="card-text">{feed.description}</p>
                         </div>
                         <div className="d-flex justify-content-center">
-                            <Link to={`/feed/${feed.id}/edit`} className="btn btn-outline-success mx-2">Edit</Link>
+                            <Link to={`/feeds/${feed.id}/edit`} className="btn btn-outline-success mx-2">Edit</Link>
                             <button onClick={handleDestroy} className="btn btn-outline-danger mx-2">Delete</button>
                         </div>
                         <hr />
