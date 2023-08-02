@@ -46,7 +46,7 @@ const Feed = () => {
                 </div>
             </div >
             <div className="text-center">
-                <Link to={`/feeds`} className="border-2 rounded-lg h-12 px-4 py-2 border-neutral-600 bg-neural-600/[.20] transition duration-200 hover:bg-neutral-600/75 text-zinc-400 hover:text-white inline-block">Back to Feeds</Link>
+                <Link to={`/feeds`} className="border-2 rounded-lg h-12 px-4 py-2 border-neutral-600 bg-neural-600/[.20] transition duration-200 hover:bg-neutral-600 text-zinc-400 hover:text-white inline-block">Back to Feeds</Link>
             </div>
         </div>
 
