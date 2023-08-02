@@ -6,7 +6,8 @@ import Navbar from './components/Navbar'
 import './App.css'
 import {Route, Routes,} from "react-router-dom";
 import Home from "./components/Home";
-
+import Friends from "./components/Friends.jsx"
+import AddFriends from "./components/AddFriends";
 function App() {
   return (
     <>
@@ -16,6 +17,8 @@ function App() {
         <Route path="/TicTacToe" element={<TicTacToe/>} />
         <Route path="/RockPaperScissor" element={<RockPaperScissor/>} />
         <Route path="/TowerOfHanoi" element={<TowerOfHanoi/>} />
+        <Route path={"/Friends"} element={<Friends/>}/>
+        <Route path={"/AddFriends"} element={<AddFriends/>}/>
       </Routes>
     </>
   )
