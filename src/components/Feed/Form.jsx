@@ -13,6 +13,17 @@ const FormFeed = (props) => {
                 <textarea onChange={props.handleChange} rows="5" cols="80" minLength="10" maxLength="1024" className="shadow rounded p-2 text-zinc-900 resize-none" value={props.feed.description} name="description" placeholder="Write description here" />
             </div>
 
+            <div className="mb-4 mt-2 flex align-top">
+                <label className="text-zinc-900 font-semibold inline-block w-36">Attached Media files:</label>
+                <input
+                    type="file"
+                    className=""
+                    accept=".jpg, .jpeg, .png, .webp, .mp4, .mov, .mpeg, .m4v, .webm"
+                    multiple
+                    name="media"
+                    onChange={props.handleMedia} />
+            </div>
+
             <div className="text-center">
                 <button type="submit" className="border-2 rounded-lg h-12 px-4 py-2 border-neutral-600 bg-neural-600/[.20] transition duration-200 hover:bg-neutral-600 hover:text-white text-zinc-900" >Submit</button>
             </div>

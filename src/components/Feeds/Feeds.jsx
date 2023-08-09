@@ -12,8 +12,8 @@ const Feeds = () => {
                 setFeedsArr(resp.data)
                 console.log(resp.data)
             })
-            .catch(resp => console.log(resp))
-    }, [feedsArr.length])
+            .catch(resp => console.error(resp))
+    }, [])
 
     const handleDestroy = (id, e) => {
         e.preventDefault()
@@ -36,12 +36,12 @@ const Feeds = () => {
 
     return (
         <div className='container-fluid'>
-            <div className="grid sm:grid-cols-12 grid-cols-6 gap-4">
+            <div className="grid lg:grid-cols-12 grid-cols-6 gap-4">
                 <div className="col-span-3">
                     <h5 className="text-center">Total Feeds: {feedsArr.length}</h5>
                 </div>
 
-                <div className="col-span-6">
+                <div className="col-span-6 lg:mx-0 mx-8">
                     <h3 className="text-center text-white text-4xl my-4 font-semibold">Showing All Feeds</h3>
                     {grid}
                     <div className="text-center my-4">

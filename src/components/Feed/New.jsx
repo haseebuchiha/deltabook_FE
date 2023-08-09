@@ -2,10 +2,12 @@ import React from "react";
 import FormFeed from "./Form";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import FormData from "form-data";
 import axios from "axios";
 
 const NewFeed = () => {
     const [feed, setFeed] = useState({})
+    const [media, setMedia] = useState([])
     const navigate = useNavigate()
 
     const handleChange = (e) => {
@@ -13,10 +15,23 @@ const NewFeed = () => {
         setFeed(Object.assign({}, feed, { [e.target.name]: e.target.value }))
     }
 
+    const handleMediaChange = (e) => {
+        setMedia([...e.target.files])
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
+        const formData = new FormData()
 
-        axios.post('http://127.0.0.1:3000/api/v1/feeds', { feed })
+        for (var key in feed) {
+            formData.append(`feed[${key}]`, feed[key]);
+        }
+        media.forEach((item, index) => (
+            formData.append('feed[media][]', item)
+        ))
+
+
+        axios.post('http://127.0.0.1:3000/api/v1/feeds', formData, { headers: { "Content-Type": "multipart/form-data", } })
             .then(resp => {
                 navigate(`/feeds/${resp.data.id}`)
             })
@@ -29,6 +44,7 @@ const NewFeed = () => {
             <FormFeed
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
+                handleMedia={handleMediaChange}
                 feed={feed}
             />
             <div className="text-center">
