@@ -25,11 +25,12 @@ const Feeds = () => {
             .catch(resp => console.log(resp))
     }
 
-    const grid = feedsArr.map(item => {
+    const grid = feedsArr.map((item, index) => {
         return (
             <Feed
                 key={item.id}
                 attributes={item}
+                index={index}
                 handleDestroy={handleDestroy}
             />)
     })

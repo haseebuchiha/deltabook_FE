@@ -35,15 +35,15 @@ export default function Navbar() {
                 <div className="flex flex-shrink-0 items-center">
                   <img
                     className="h-8 w-auto"
-                    src="../public/vite.svg"
-                    alt="Your Company"
+                    src="/vite.svg"
+                    alt="Deltabook"
                   />
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => {
                       if (item.hasOwnProperty('subitems'))
-                        return <Menu as='div' className="relative">
+                        return <Menu as='div' key={item.name} className="relative">
                           <Menu.Button className={classNames(
                             item.current ? 'bg-zinc-900 text-white' : 'text-zinc-300 hover:bg-zinc-700 hover:text-white',
                             'rounded-md px-3 py-2 text-sm font-medium'
@@ -172,9 +172,8 @@ export default function Navbar() {
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
               {navigation.map((item) => {
-                return <Disclosure>
+                return <Disclosure key={item.name}>
                   <Disclosure.Button
-                    key={item.name}
                     as={item.hasOwnProperty('subitems') ? "div" : "a"}
                     href={item.href}
                     className={classNames(
