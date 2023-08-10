@@ -14,6 +14,8 @@ const Feed = (props) => {
                 <Link to={`/feeds/${props.attributes.id}`} className="text-2xl hover:underline my-2 inline-block">{props.attributes.title}</Link>
                 <hr className="border-0 h-px bg-transparent bg-gradient-to-r from-transparent via-zinc-500 to-transparent opacity-25" />
                 <p className="text-zinc-900 text-start my-4 line-clamp-2">{props.attributes.description}</p>
+                <hr className="border-0 h-px bg-transparent bg-gradient-to-r from-transparent via-zinc-500 to-transparent opacity-25" />
+                {props.attributes.media.length > 0 && <p className="text-zinc-600 my-3"> has {props.attributes.media.length} media file(s) attached.</p>}
             </div>
 
             <div className="flex flex-row justify-center text-center bg-light space-x-4 py-3">

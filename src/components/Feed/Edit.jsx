@@ -8,6 +8,8 @@ const EditFeed = () => {
     const [feed, setFeed] = useState({})
     const navigate = useNavigate()
     const params = useParams()
+    const [media, setMedia] = useState([])
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         const id = params.id
@@ -24,14 +26,42 @@ const EditFeed = () => {
         setFeed(Object.assign({}, feed, { [e.target.name]: e.target.value }))
     }
 
+    const handleMediaChange = (e) => {
+        setMedia([...e.target.files])
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
+        setLoading(true)
         const id = params.id
+        const formData = new FormData()
+
+        for (var key in feed) {
+            formData.append(`feed[${key}]`, feed[key]);
+        }
+        formData.delete('feed[media]')
+        media.forEach((item, index) => (
+            formData.append('feed[media][]', item)
+        ))
 
         const url = `http://127.0.0.1:3000/api/v1/feeds/${id}`
-        axios.patch(url, { feed })
+        axios.patch(url, formData, { headers: { "Content-Type": "multipart/form-data", } })
             .then(resp => {
                 navigate(`/feeds/${resp.data.id}`)
+            })
+            .catch(resp => { console.log(resp) })
+        setLoading(false)
+    }
+
+    const handleMediaDelete = (id) => {
+        axios.delete(`http://127.0.0.1:3000/api/v1/feed_media/${id}/purge_later`)
+            .then(resp => {
+                console.log(resp)
+                const newMedia = feed.media.filter(item => item.blob_id != resp.data.id)
+                setFeed({
+                    ...feed,
+                    media: newMedia
+                })
             })
             .catch(resp => { console.log(resp) })
     }
@@ -42,6 +72,9 @@ const EditFeed = () => {
             <FormFeed
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
+                handleMedia={handleMediaChange}
+                handleMediaDelete={handleMediaDelete}
+                loading={loading}
                 feed={feed}
             />
             <div className="text-center">

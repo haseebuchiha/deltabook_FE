@@ -9,6 +9,7 @@ const NewFeed = () => {
     const [feed, setFeed] = useState({})
     const [media, setMedia] = useState([])
     const navigate = useNavigate()
+    const [loading, setLoading] = useState(false)
 
     const handleChange = (e) => {
         e.preventDefault()
@@ -21,6 +22,7 @@ const NewFeed = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        setLoading(true)
         const formData = new FormData()
 
         for (var key in feed) {
@@ -30,12 +32,12 @@ const NewFeed = () => {
             formData.append('feed[media][]', item)
         ))
 
-
         axios.post('http://127.0.0.1:3000/api/v1/feeds', formData, { headers: { "Content-Type": "multipart/form-data", } })
             .then(resp => {
                 navigate(`/feeds/${resp.data.id}`)
             })
             .catch(resp => { console.log(resp) })
+        setLoading(false)
     }
 
     return (
@@ -45,6 +47,7 @@ const NewFeed = () => {
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
                 handleMedia={handleMediaChange}
+                loading={loading}
                 feed={feed}
             />
             <div className="text-center">
