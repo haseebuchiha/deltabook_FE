@@ -12,6 +12,8 @@ import NewFeed from "./components/Feed/New";
 import EditFeed from "./components/Feed/Edit";
 
 
+import Friends from "./components/Friends.jsx"
+import AddFriends from "./components/AddFriends";
 function App() {
   return (
     <>
@@ -25,6 +27,12 @@ function App() {
         <Route path='/feeds/new' element={<NewFeed />} />
         <Route path='/feeds/:id' element={<Feed />} />
         <Route path='/feeds/:id/edit' element={<EditFeed />} />
+        <Route path="/" element={<Home/>} />
+        <Route path="/TicTacToe" element={<TicTacToe/>} />
+        <Route path="/RockPaperScissor" element={<RockPaperScissor/>} />
+        <Route path="/TowerOfHanoi" element={<TowerOfHanoi/>} />
+        <Route path={"/Friends"} element={<Friends/>}/>
+        <Route path={"/AddFriends"} element={<AddFriends/>}/>
       </Routes>
     </>
   )
