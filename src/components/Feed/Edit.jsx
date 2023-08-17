@@ -3,6 +3,7 @@ import FormFeed from "./Form";
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useQuery, useMutation } from "react-query";
 
 const EditFeed = () => {
     const [feed, setFeed] = useState({})
@@ -10,20 +11,42 @@ const EditFeed = () => {
     const params = useParams()
     const [media, setMedia] = useState([])
     const [loading, setLoading] = useState(false)
+    const feedID = params.id
 
-    useEffect(() => {
-        const id = params.id
-        const url = `http://127.0.0.1:3000/api/v1/feeds/${id}`
-        axios.get(url)
-            .then(resp => {
-                setFeed(resp.data)
+    useQuery(`feed-${feedID}`, async () => {
+        const resp = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/feeds/${feedID}.json`)
+        return resp.data
+    }, {
+        onSuccess: (data) => {
+            setFeed(data)
+        }
+    })
+
+    const editFeed = useMutation(async (data) => {
+        const resp = await axios.patch(`${import.meta.env.VITE_API_URL}/api/v1/feeds/${feedID}`, data, { headers: { "Content-Type": "multipart/form-data", } })
+        return resp.data
+    }, {
+        onSuccess: data => {
+            navigate(`/feeds/${data.id}`)
+        }
+    })
+
+    const deleteMedia = useMutation(async (id) => {
+        const resp = await axios.delete(`${import.meta.env.VITE_API_URL}/api/v1/feed_media/${id}/purge_later`)
+        return resp.data
+    }, {
+        onSuccess: data => {
+            const newMedia = feed.media.filter(item => item.blob_id != data.id)
+            setFeed({
+                ...feed,
+                media: newMedia
             })
-            .catch(resp => console.log(resp))
-    }, [])
+        }
+    })
 
     const handleChange = (e) => {
         e.preventDefault()
-        setFeed(Object.assign({}, feed, { [e.target.name]: e.target.value }))
+        setFeed({ ...feed, [e.target.name]: e.target.value })
     }
 
     const handleMediaChange = (e) => {
@@ -33,7 +56,6 @@ const EditFeed = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         setLoading(true)
-        const id = params.id
         const formData = new FormData()
 
         for (var key in feed) {
@@ -43,27 +65,12 @@ const EditFeed = () => {
         media.forEach((item, index) => (
             formData.append('feed[media][]', item)
         ))
-
-        const url = `http://127.0.0.1:3000/api/v1/feeds/${id}`
-        axios.patch(url, formData, { headers: { "Content-Type": "multipart/form-data", } })
-            .then(resp => {
-                navigate(`/feeds/${resp.data.id}`)
-            })
-            .catch(resp => { console.log(resp) })
+        editFeed.mutate(formData)
         setLoading(false)
     }
 
     const handleMediaDelete = (id) => {
-        axios.delete(`http://127.0.0.1:3000/api/v1/feed_media/${id}/purge_later`)
-            .then(resp => {
-                console.log(resp)
-                const newMedia = feed.media.filter(item => item.blob_id != resp.data.id)
-                setFeed({
-                    ...feed,
-                    media: newMedia
-                })
-            })
-            .catch(resp => { console.log(resp) })
+        deleteMedia.mutate(id)
     }
 
     return (

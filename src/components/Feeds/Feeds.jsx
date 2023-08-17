@@ -1,39 +1,44 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import Feed from './Feed'
 import { Link } from 'react-router-dom'
+import { useQuery, useMutation } from 'react-query'
 
 const Feeds = () => {
     const [feedsArr, setFeedsArr] = useState([])
-    useEffect(() => {
+    useQuery('feeds', async () => {
+        const resp = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/feeds.json`)
+        return resp.data
+    }, {
+        onSuccess: (data) => {
+            setFeedsArr(data)
+        }
+    })
 
-        axios.get('http://127.0.0.1:3000/api/v1/feeds.json')
-            .then(resp => {
-                setFeedsArr(resp.data)
-                console.log(resp.data)
-            })
-            .catch(resp => console.error(resp))
-    }, [])
+    const deleteFeed = useMutation(async (id) => {
+        const resp = await axios.delete(`${import.meta.env.VITE_API_URL}/api/v1/feeds/${id}`)
+        return id
+    }, {
+        onSuccess: (data) => {
+            const newfeeds = feedsArr.filter(feed => feed.id !== data)
+            setFeedsArr(newfeeds)
+        }
+    })
 
     const handleDestroy = (id, e) => {
         e.preventDefault()
-        axios.delete(`http://127.0.0.1:3000/api/v1/feeds/${id}`)
-            .then(resp => {
-                const newfeeds = feedsArr.filter(feed => feed.id !== id)
-                setFeedsArr(newfeeds)
-            })
-            .catch(resp => console.log(resp))
+        deleteFeed.mutate(id)
     }
 
-    const grid = feedsArr.map((item, index) => {
-        return (
-            <Feed
-                key={item.id}
-                attributes={item}
-                index={index}
-                handleDestroy={handleDestroy}
-            />)
-    })
+    const grid = feedsArr.map((item, index) =>
+    (
+        <Feed
+            key={item.id}
+            attributes={item}
+            index={index}
+            handleDestroy={handleDestroy}
+        />)
+    )
 
     return (
         <div className='container-fluid'>

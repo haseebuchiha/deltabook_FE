@@ -5,6 +5,7 @@ import TicTacToe from './components/TicTacToe'
 import Navbar from './components/Navbar'
 import './App.css'
 import { Route, Routes, } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
 import Home from "./components/Home";
 import Feed from "./components/Feed/Feed";
 import Feeds from "./components/Feeds/Feeds";
@@ -13,8 +14,9 @@ import EditFeed from "./components/Feed/Edit";
 
 
 function App() {
+  const queryClient = new QueryClient()
   return (
-    <>
+    <QueryClientProvider client={queryClient} >
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -26,7 +28,7 @@ function App() {
         <Route path='/feeds/:id' element={<Feed />} />
         <Route path='/feeds/:id/edit' element={<EditFeed />} />
       </Routes>
-    </>
+    </QueryClientProvider>
   )
 }
 export default App

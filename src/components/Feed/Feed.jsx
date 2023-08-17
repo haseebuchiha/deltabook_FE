@@ -1,39 +1,44 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useRef, Fragment } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 import ReactPlayer from 'react-player'
 import axios from 'axios'
+import { useMutation, useQuery } from 'react-query'
 
 
 const Feed = () => {
     const [feed, setFeed] = useState({})
     const navigate = useNavigate()
     const params = useParams()
+    const mediaRefs = useRef([])
+    const feedID = params.id
 
-    let currMed = 0
-    let media = null
-    const imgFormats = ['jpg', 'jpeg', 'png', 'webp']
-    const vidFormats = ['mp4', 'mov', 'mpeg', 'm4v', 'webm']
+    useQuery(`feed-${feedID}`, async () => {
+        const resp = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/feeds/${feedID}.json`)
+        return resp.data
+    }, {
+        onSuccess: (data) => {
+            setFeed(data)
+        }
+    })
 
-    useEffect(() => {
-        const id = params.id
-        const url = `http://127.0.0.1:3000/api/v1/feeds/${id}`
-        axios.get(url)
-            .then(resp => {
-                setFeed(resp.data)
-                console.log(resp.data)
-            })
-            .catch(resp => console.error(resp))
-    }, [])
+    const deleteFeed = useMutation(async () => {
+        const resp = await axios.delete(`${import.meta.env.VITE_API_URL}/api/v1/feeds/${feedID}`)
+        return resp.data
+    }, {
+        onSuccess: () => {
+            navigate("/feeds")
+        }
+    })
 
     const handleDestroy = (e) => {
-        const id = params.id
-        axios.delete(`http://127.0.0.1:3000/api/v1/feeds/${id}`)
-            .then(resp => {
-                navigate("/feeds")
-            })
-            .catch(resp => console.error(resp))
+        e.preventDefault()
+        deleteFeed.mutate()
     }
+
+    let currMed = 0
+    const imgFormats = ['jpg', 'jpeg', 'png', 'webp']
+    const vidFormats = ['mp4', 'mov', 'mpeg', 'm4v', 'webm']
 
     const nextMedia = () => {
         currMed = (currMed === (feed.media.length - 1) ? 0 : currMed + 1)
@@ -46,15 +51,12 @@ const Feed = () => {
     }
 
     const changeMedia = () => {
-        if (!media) {
-            media = document.querySelectorAll(".media")
-        }
-        media.forEach((item, index) => {
+        mediaRefs.current?.forEach((item, index) => {
             item.style.left = `${(index - currMed) * 100 + 50}%`
         })
     }
 
-    function get_url_extension(url) {
+    const get_url_extension = (url) => {
         return url.split(/[#?]/)[0].split('.').pop().trim();
     }
 
@@ -78,16 +80,20 @@ const Feed = () => {
                     <ChevronLeftIcon className='h-12 w-12 absolute z-10 top-1/2 -translate-y-1/2 left-10 hover:bg-zinc-400/50 rounded-full transition duration-300 cursor-pointer' onClick={prevMedia} />
                     <ChevronRightIcon className='h-12 w-12 absolute z-10 top-1/2 -translate-y-1/2 right-10 hover:bg-zinc-400/50 rounded-full transition duration-300 cursor-pointer' onClick={nextMedia} />
                     {feed.media.map((item, index) => {
-                        if (imgFormats?.includes(get_url_extension(item.link))) {
-                            return <div key={item.blob_id} className="media flex items-center justify-center w-full h-full -translate-x-1/2 absolute transition-all ease-in-out duration-700" style={{ left: `${(index - currMed) * 100 + 50}%` }}>
-                                <img className='object-contain max-h-full max-w-full w-full' src={item.link} />
-                            </div>
-                        }
-                        else if (vidFormats?.includes(get_url_extension(item.link))) {
-                            return <div key={item.blob_id} className="media flex items-center justify-center w-full h-full -translate-x-1/2 absolute transition-all ease-in-out duration-700" style={{ left: `${(index - currMed) * 100 + 50}%` }}>
-                                <ReactPlayer url={item.link} className='object-contain max-h-full max-w-full w-full' width="80%" style={{ left: `${(index - currMed) * 100 + 50}%` }} controls />
-                            </div>
-                        }
+                        return <Fragment key={item.blob_id}>
+                            {
+                                (imgFormats?.includes(get_url_extension(item.link))) &&
+                                <div ref={(el) => (mediaRefs.current[index] = el)} className="flex items-center justify-center w-full h-full -translate-x-1/2 absolute transition-all ease-in-out duration-700" style={{ left: `${(index - currMed) * 100 + 50}%` }}>
+                                    <img className='object-contain max-h-full max-w-full w-full' src={item.link} />
+                                </div>
+                            }
+                            {
+                                (vidFormats?.includes(get_url_extension(item.link))) &&
+                                <div ref={(el) => (mediaRefs.current[index] = el)} className="flex items-center justify-center w-full h-full -translate-x-1/2 absolute transition-all ease-in-out duration-700" style={{ left: `${(index - currMed) * 100 + 50}%` }}>
+                                    <ReactPlayer url={item.link} className='object-contain max-h-full max-w-full w-full' width="80%" style={{ left: `${(index - currMed) * 100 + 50}%` }} controls />
+                                </div>
+                            }
+                        </Fragment>
                     })}
                 </div>}
 
@@ -100,17 +106,6 @@ const Feed = () => {
                 <Link to={`/feeds`} className="border-2 rounded-lg h-12 px-4 py-2 border-neutral-600 bg-neural-600/[.20] transition duration-200 hover:bg-neutral-600 text-zinc-400 hover:text-white inline-block">Back to Feeds</Link>
             </div>
         </div >
-
-
-
-
-
-
-
-
-
-
-
     )
 }
 

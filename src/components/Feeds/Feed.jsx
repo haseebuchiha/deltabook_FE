@@ -1,11 +1,11 @@
-import React from "react";
+import { React, useRef, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 import ReactPlayer from 'react-player'
 
 const Feed = (props) => {
+    const mediaRefs = useRef([])
     let currMed = 0
-    let media = null
     const imgFormats = ['jpg', 'jpeg', 'png', 'webp']
     const vidFormats = ['mp4', 'mov', 'mpeg', 'm4v', 'webm']
 
@@ -20,17 +20,15 @@ const Feed = (props) => {
     }
 
     const changeMedia = () => {
-        if (!media) {
-            media = document.querySelectorAll(`.media${props.index}`)
-        }
-        media.forEach((item, index) => {
+        mediaRefs.current?.forEach((item, index) => {
             item.style.left = `${(index - currMed) * 100 + 50}%`
         })
     }
 
-    function get_url_extension(url) {
+    const get_url_extension = (url) => {
         return url.split(/[#?]/)[0].split('.').pop().trim();
     }
+
     return (
         <div className="my-4 bg-zinc-200 rounded-lg shadow">
 
@@ -49,16 +47,20 @@ const Feed = (props) => {
                 <ChevronLeftIcon className='h-12 w-12 absolute z-10 top-1/2 -translate-y-1/2 left-4 hover:bg-zinc-400/50 rounded-full transition duration-300 cursor-pointer' onClick={prevMedia} />
                 <ChevronRightIcon className='h-12 w-12 absolute z-10 top-1/2 -translate-y-1/2 right-4  hover:bg-zinc-400/50 rounded-full transition duration-300 cursor-pointer' onClick={nextMedia} />
                 {props.attributes.media.map((item, index) => {
-                    if (imgFormats?.includes(get_url_extension(item.link))) {
-                        return <div key={item.blob_id} className={`media${props.index} flex items-center justify-center w-full h-full -translate-x-1/2 absolute transition-all ease-in-out duration-700`} style={{ left: `${(index - currMed) * 100 + 50}%` }}>
-                            <img className='object-contain max-h-full max-w-full w-full' src={item.link} />
-                        </div>
-                    }
-                    else if (vidFormats?.includes(get_url_extension(item.link))) {
-                        return <div key={item.blob_id} className={`media${props.index} flex items-center justify-center w-full h-full -translate-x-1/2 absolute transition-all ease-in-out duration-700`} style={{ left: `${(index - currMed) * 100 + 50}%` }}>
-                            <ReactPlayer url={item.link} className='object-contain max-h-full max-w-full w-full' width="80%" style={{ left: `${(index - currMed) * 100 + 50}%` }} controls />
-                        </div>
-                    }
+                    return <Fragment key={item.blob_id} >
+                        {
+                            imgFormats?.includes(get_url_extension(item.link)) &&
+                            <div ref={(el) => (mediaRefs.current[index] = el)} className={'flex items-center justify-center w-full h-full -translate-x-1/2 absolute transition-all ease-in-out duration-700'} style={{ left: `${(index - currMed) * 100 + 50}%` }}>
+                                <img className='object-contain max-h-full max-w-full w-full' src={item.link} />
+                            </div>
+                        }
+                        {
+                            vidFormats?.includes(get_url_extension(item.link)) &&
+                            <div ref={(el) => (mediaRefs.current[index] = el)} className={'flex items-center justify-center w-full h-full -translate-x-1/2 absolute transition-all ease-in-out duration-700'} style={{ left: `${(index - currMed) * 100 + 50}%` }}>
+                                <ReactPlayer url={item.link} className='object-contain max-h-full max-w-full w-full' width="80%" style={{ left: `${(index - currMed) * 100 + 50}%` }} controls />
+                            </div>
+                        }
+                    </Fragment>
                 })}
             </div>}
 

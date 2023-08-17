@@ -42,8 +42,8 @@ export default function Navbar() {
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => {
-                      if (item.hasOwnProperty('subitems'))
-                        return <Menu as='div' key={item.name} className="relative">
+                      return (item.hasOwnProperty('subitems')) ?
+                        <Menu as='div' key={item.name} className="relative">
                           <Menu.Button className={classNames(
                             item.current ? 'bg-zinc-900 text-white' : 'text-zinc-300 hover:bg-zinc-700 hover:text-white',
                             'rounded-md px-3 py-2 text-sm font-medium'
@@ -78,11 +78,8 @@ export default function Navbar() {
                               </Menu.Items>
                             </Transition>
                           </Menu.Button>
-
-
                         </Menu>
-                      else
-                        return <a
+                        : <a
                           key={item.name}
                           href={item.href}
                           className={classNames(
@@ -94,11 +91,10 @@ export default function Navbar() {
                           {item.name}
                         </a>
                     })}
-
-
                   </div>
                 </div>
               </div>
+
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button
                   type="button"
@@ -108,7 +104,6 @@ export default function Navbar() {
                   <span className="sr-only">View notifications</span>
                   <BellIcon className="h-6 w-6 bg-zinc-800 text-zinc-400" aria-hidden="true" />
                 </button>
-
 
                 <Menu as="div" className="relative ml-3">
                   <div>
