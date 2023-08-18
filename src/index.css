@@ -11,5 +11,4 @@
   body {
     @apply bg-gradient-to-tr from-zinc-700 via-zinc-900 to-black min-h-screen h-full
   }
-
 }

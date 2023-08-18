@@ -82,6 +82,7 @@ const FormFeed = (props) => {
 
             <div className="text-center">
                 <button type="submit" className="border-2 rounded-lg h-12 px-4 py-2 border-neutral-600 bg-neural-600/[.20] transition duration-200 hover:bg-neutral-600 hover:text-white text-zinc-900 disabled:pointer-events-none disabled:cursor-not-allowed" disabled={props.loading}>Submit</button>
+
             </div>
         </form>
     )

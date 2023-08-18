@@ -43,6 +43,7 @@ const Feeds = () => {
     return (
         <div className='container-fluid'>
             <div className="grid lg:grid-cols-12 grid-cols-6 gap-4">
+
                 <div className="col-span-3">
                     <h5 className="text-center">Total Feeds: {feedsArr.length}</h5>
                 </div>
