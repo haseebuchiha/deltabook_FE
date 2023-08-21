@@ -5,7 +5,7 @@ import { Bars3Icon, BellIcon, XMarkIcon, ChevronDownIcon } from '@heroicons/reac
 const navigation = [
   { name: 'Home', href: '/', current: false },
   { name: 'Feeds', href: '#', current: false, subitems: [{ name: 'Show Feeds', href: '/feeds' }, { name: 'New Feed', href: '/feeds/new' }] },
-  { name: 'Games', href: '#', current: false },
+  { name: 'Friends', href: '/Friends', current: false },
 ]
 
 function classNames(...classes) {
