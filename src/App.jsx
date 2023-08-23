@@ -29,8 +29,6 @@ function App() {
         <Route path='/feeds/:id' element={<Feed />} />
         <Route path='/feeds/:id/edit' element={<EditFeed />} />
         <Route path="/TicTacToe" element={<TicTacToe />} />
-        <Route path="/RockPaperScissor" element={<RockPaperScissor />} />
-        <Route path="/TowerOfHanoi" element={<TowerOfHanoi />} />
         <Route path={"/Friends"} element={<Friends />} />
         <Route path={"/AddFriends"} element={<AddFriends />} />
       </Routes>

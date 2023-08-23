@@ -1,6 +1,6 @@
 # README
 
-## To start the project (if doing first time):
+## To start the project:
 
 * Install node 14.18 and run 'nvm use 14.18'
 
