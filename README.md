@@ -12,4 +12,10 @@
 
 * Add a new object to the navigation array with title as 'name', navigation path as 'href' and add another field 'current' with value false.
 
-* To add a dropdown, add an array to the object named 'subitems' with same format except the 'current' attribute.
+* To add a dropdown, add an array 'subitems' to the object with same format except the 'current' attribute.
+
+## To add navigation to Sidebar:
+
+* Add a new object to the 'sideNavigation' array with title as 'name' and navigation path as 'href'.
+
+* To add a disclosure, add an array 'items' to the object with same format (for each sub object, add name and href attribute).
