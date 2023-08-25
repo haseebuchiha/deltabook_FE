@@ -3,6 +3,7 @@ import TowerOfHanoi from './components/TowerOfHonoi'
 import RockPaperScissor from './components/RockPaperScissor'
 import TicTacToe from './components/TicTacToe'
 import Navbar from './components/Navbar'
+import Sidebar from './components/Sidebar'
 import './App.css'
 import { Route, Routes, } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -19,19 +20,21 @@ function App() {
   return (
     <QueryClientProvider client={queryClient} >
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/TicTacToe" element={<TicTacToe />} />
-        <Route path="/RockPaperScissor" element={<RockPaperScissor />} />
-        <Route path="/TowerOfHanoi" element={<TowerOfHanoi />} />
-        <Route path='/feeds' element={<Feeds />} />
-        <Route path='/feeds/new' element={<NewFeed />} />
-        <Route path='/feeds/:id' element={<Feed />} />
-        <Route path='/feeds/:id/edit' element={<EditFeed />} />
-        <Route path="/TicTacToe" element={<TicTacToe />} />
-        <Route path={"/Friends"} element={<Friends />} />
-        <Route path={"/AddFriends"} element={<AddFriends />} />
-      </Routes>
+      <Sidebar>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/TicTacToe" element={<TicTacToe />} />
+          <Route path="/RockPaperScissor" element={<RockPaperScissor />} />
+          <Route path="/TowerOfHanoi" element={<TowerOfHanoi />} />
+          <Route path='/feeds' element={<Feeds />} />
+          <Route path='/feeds/new' element={<NewFeed />} />
+          <Route path='/feeds/:id' element={<Feed />} />
+          <Route path='/feeds/:id/edit' element={<EditFeed />} />
+          <Route path="/TicTacToe" element={<TicTacToe />} />
+          <Route path={"/Friends"} element={<Friends />} />
+          <Route path={"/AddFriends"} element={<AddFriends />} />
+        </Routes>
+      </Sidebar>
     </QueryClientProvider>
   )
 }

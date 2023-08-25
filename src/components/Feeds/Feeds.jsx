@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import Feed from './Feed'
+import Sidebar from '../Sidebar'
 import { Link } from 'react-router-dom'
 import { useQuery, useMutation } from 'react-query'
 
@@ -42,13 +43,10 @@ const Feeds = () => {
 
     return (
         <div className='container-fluid'>
-            <div className="grid lg:grid-cols-12 grid-cols-6 gap-4">
+            <div className="w-full lg:max-w-5xl gap-4">
 
-                <div className="col-span-3">
-                    <h5 className="text-center">Total Feeds: {feedsArr.length}</h5>
-                </div>
 
-                <div className="col-span-6 lg:mx-0 mx-8">
+                <div className="lg:mx-2 mx-8">
                     <h3 className="text-center text-white text-4xl my-4 font-semibold">Showing All Feeds</h3>
                     {grid}
                     <div className="text-center my-4">
@@ -56,9 +54,6 @@ const Feeds = () => {
                     </div>
                 </div>
 
-                <div className="col-span-3">
-                    <h5 className="text-center">Total Feeds: {feedsArr.length}</h5>
-                </div>
             </div>
         </div>
     )
