@@ -42,16 +42,16 @@ function TowerOfHonoi() {
     const sourceTower = Object.entries(towers).find(
       ([_, disks]) => disks.includes(diskId)
     );
-  
+
     // Check if the source tower is found
     if (!sourceTower) {
       return;
     }
-  
+
     const [sourceTowerId, sourceDisks] = sourceTower;
     const diskIndex = sourceDisks.indexOf(diskId);
     const destinationDisks = updatedTowers[towerId];
-  
+
     // Check if the destination tower has a larger disk
     if (
       destinationDisks.length > 0 &&
@@ -59,7 +59,7 @@ function TowerOfHonoi() {
     ) {
       return;
     }
-  
+
     updatedTowers[sourceTowerId].splice(diskIndex, 1);
     updatedTowers[towerId].push(diskId);
     setTowers(updatedTowers);
@@ -72,7 +72,7 @@ function TowerOfHonoi() {
       }
     }, 2);
   };
-    
+
   const renderDisks = (towerId) => {
     const disks = towers[towerId];
     const isLastDisk = (index) => index === disks.length - 1;

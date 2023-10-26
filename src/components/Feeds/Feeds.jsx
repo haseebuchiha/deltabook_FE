@@ -42,11 +42,11 @@ const Feeds = () => {
     )
 
     return (
-        <div className='container-fluid'>
-            <div className="w-full lg:max-w-5xl gap-4">
+        <div className='container-fluid' style={{}}>
+            <div className="w-full lg:max-w-5xl gap-4 content-center">
 
 
-                <div className="lg:mx-2 mx-8">
+                <div className="lg:mx-2 mx-8" style={{ marginLeft: "40%", width: "80%" }}>
                     <h3 className="text-center text-white text-4xl my-4 font-semibold">Showing All Feeds</h3>
                     {grid}
                     <div className="text-center my-4">

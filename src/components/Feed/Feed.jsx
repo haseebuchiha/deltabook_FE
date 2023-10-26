@@ -63,7 +63,7 @@ const Feed = () => {
     return (
         <div className="container mx-auto max-w-screen-lg">
             <h3 className="text-center">Showing Feed</h3>
-            <div className="col my-4 bg-zinc-200 rounded-lg shadow">
+            <div className="col my-4 bg-zinc-200 rounded-lg shadow" style={{ marginLeft: "40%", width: "80%" }}>
 
                 <div className="col col-3 block rounded-t-lg bg-zinc-300 px-8 py-4">
                     <h5><small>by </small>Random User</h5>
@@ -103,7 +103,7 @@ const Feed = () => {
                 </div>
             </div >
             <div className="text-center">
-                <Link to={`/feeds`} className="border-2 rounded-lg h-12 px-4 py-2 border-neutral-600 bg-neural-600/[.20] transition duration-200 hover:bg-neutral-600 text-zinc-400 hover:text-white inline-block">Back to Feeds</Link>
+                <Link to={`/feeds`} className="border-2 rounded-lg h-12 px-4 py-2 border-neutral-600 bg-neural-600/[.20] transition duration-200 hover:bg-neutral-600 text-zinc-400 hover:text-white inline-block" style={{ marginLeft: "60%" }}>Back to Feeds</Link>
             </div>
         </div >
     )

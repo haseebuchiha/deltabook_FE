@@ -2,12 +2,9 @@ import { React, Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { ChevronDoubleRightIcon, ChevronDoubleLeftIcon, ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 
-const sideNavigation = [{
-    name: 'Games', items: [{ name: 'Tower of Hanoi', href: '/TowerOfHanoi' },
-    { name: 'Tic Tac Toe', href: '/TicTacToe' },
-    { name: 'Rock Paper Scissor', href: '/RockPaperScissor' }]
-},
-{ name: 'Feeds', items: [{ name: 'Post a feed', href: '/feeds/new' }, { name: 'View all feeds', href: '/feeds' }] }
+const sideNavigation = [
+    { name: 'Feeds', items: [{ name: 'Post a feed', href: '/feeds/new' }, { name: 'View all feeds', href: '/feeds' }] },
+    { name: 'Games', items: [{ name: 'Add a game', href: '/games/new' }, { name: 'View all games', href: '/games' }] }
 ]
 
 

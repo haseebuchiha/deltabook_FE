@@ -30,7 +30,7 @@ const Feed = (props) => {
     }
 
     return (
-        <div className="my-4 bg-zinc-200 rounded-lg shadow">
+        <div className="my-4 bg-zinc-200 rounded-lg shadow ml-3 m-8" >
 
             <div className="block rounded-t-lg bg-zinc-300 px-8 py-4">
                 <h5><small>by </small>Random User</h5>

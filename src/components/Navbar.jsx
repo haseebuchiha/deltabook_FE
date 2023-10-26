@@ -5,7 +5,7 @@ import { Bars3Icon, BellIcon, XMarkIcon, ChevronDownIcon } from '@heroicons/reac
 const navigation = [
   { name: 'Home', href: '/', current: false },
   { name: 'Feeds', href: '#', current: false, subitems: [{ name: 'Show Feeds', href: '/feeds' }, { name: 'New Feed', href: '/feeds/new' }] },
-  { name: 'Friends', href: '/Friends', current: false },
+  // { name: 'Friends', href: '/Friends', current: false },
 ]
 
 function classNames(...classes) {
@@ -95,7 +95,7 @@ export default function Navbar() {
                 </div>
               </div>
 
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+              {/* <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button
                   type="button"
                   className="relative rounded-full bg-zinc-800 p-1 text-zinc-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-zinc-800"
@@ -160,7 +160,7 @@ export default function Navbar() {
                     </Menu.Items>
                   </Transition>
                 </Menu>
-              </div>
+              </div>*/}
             </div>
           </div>
 

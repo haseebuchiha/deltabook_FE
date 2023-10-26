@@ -12,8 +12,13 @@ import Feed from "./components/Feed/Feed";
 import Feeds from "./components/Feeds/Feeds";
 import NewFeed from "./components/Feed/New";
 import EditFeed from "./components/Feed/Edit";
+import Games from "./components/Games/Games";
+import Game from "./components/Game/Game";
+import EditGame from "./components/Game/Edit";
 import Friends from "./components/Friends.jsx"
 import AddFriends from "./components/AddFriends";
+import NewGame from "./components/Game/New";
+import PlayGame from "./components/Game/Play";
 
 function App() {
   const queryClient = new QueryClient()
@@ -30,6 +35,11 @@ function App() {
           <Route path='/feeds/new' element={<NewFeed />} />
           <Route path='/feeds/:id' element={<Feed />} />
           <Route path='/feeds/:id/edit' element={<EditFeed />} />
+          <Route path='/games' element={<Games />} />
+          <Route path='/games/:id' element={<Game />} />
+          <Route path='/games/:id/edit' element={<EditGame />} />
+          <Route path='/games/:id/play' element={<PlayGame />} />
+          <Route path='/games/new' element={<NewGame />} />
           <Route path="/TicTacToe" element={<TicTacToe />} />
           <Route path={"/Friends"} element={<Friends />} />
           <Route path={"/AddFriends"} element={<AddFriends />} />
